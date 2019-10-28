@@ -33,23 +33,65 @@ class StudentAI():
         #   self.undo()
         # move= bestmove
 
+       
+        #Initializing the best_move/score as the first possible move/score
         best_move = moves[0][0]
+        self.board.make_move(best_move, self.color)
+        best_score = self.board_score() 
+        self.board.undo()               
+
+
         for i in moves:
-            self.board.make_move(i)
+
+            #changing to new gamestate
+            self.board.make_move(i, self.color)
+
+            #grabbing list of opponents moves
             opponents_moves = self.board.get_all_possible_moves(self.opponent[self.color])
+
+            #initializing the min_move/scre as the first possible move of the opponent
             min_move = opponents_moves[0][0];
-            for j in opponents_moves:
+            self.board.make_move(min_move, self.opponent[self.color])    
+            min_score = self.board_score()   
+            self.board.undo()
+
+            #itterate through opponents moves to find the min value
+            for j in opponents_moves:        
                 self.board.make_move(j)
+
                 # Find the min between min_move and j
+                if(min_score > self.board_score):
+                    min_score = self.board_score
+                    min_move = j
+
                 # set min_move to the new min
                 self.board.undo()
+            
             # Set the best_move to max of 
             # min_move and best_move
+            if(best_score < min_score):
+                best_score = min_score
+                best_move = i
+
             self.board.undo()
-        #move = best_move
+        move = best_move
         self.board.make_move(move,self.color)
         return move
 
-    def checkscore(self):
-        return 0
-    
+    def board_score(self):
+        w_points = 0; b_points = 0;
+        for c in range(self.col):
+            for r in range(self.row):
+                if self.board.board[c][r].get_color() == 'W':
+                    if self.board.board[c][r].is_king == True:
+                        w_points += 1.2
+                    else:
+                        w_points += 1
+                elif self.board.board[c][r].get_color() == 'B':
+                    if self.board.board[c][r].is_king == True:
+                        b_points += 1.2
+                    else:
+                        b_points += 1;
+                else:
+                    pass
+        return w_points - b_points;
