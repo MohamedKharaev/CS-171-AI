@@ -44,7 +44,7 @@ class StudentAI():
                 # set min_move to the new min
                 self.board.undo()
             # Set the best_move to max of 
-            # i and best_move
+            # min_move and best_move
             self.board.undo()
         #move = best_move
         self.board.make_move(move,self.color)
