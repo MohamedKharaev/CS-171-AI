@@ -19,9 +19,37 @@ class StudentAI():
             self.board.make_move(move,self.opponent[self.color])
         else:
             self.color = 1
-        moves = self.board.get_all_possible_moves(self.color)
-        index = randint(0,len(moves)-1)
-        inner_index =  randint(0,len(moves[index])-1)
-        move = moves[index][inner_index]
+        moves = self.board.get_all_possible_moves(self.color) # list of moves
+
+        #best_move = moves[0][0]
+        # for i in moves:
+        #   min_move = moves[0][1]
+        #   self.make_move(i)
+        #   for j in self.board.get_all_possible_moves(opponent_color)
+        #         self.make_move(j)
+        #         min(min_move, j.score)
+        #         self.undo() # Undo the last move
+        #   max(best_move, moves)
+        #   self.undo()
+        # move= bestmove
+
+        best_move = moves[0][0]
+        for i in moves:
+            self.board.make_move(i)
+            opponents_moves = self.board.get_all_possible_moves(self.opponent[self.color])
+            min_move = opponents_moves[0][0];
+            for j in opponents_moves:
+                self.board.make_move(j)
+                # Find the min between min_move and j
+                # set min_move to the new min
+                self.board.undo()
+            # Set the best_move to max of 
+            # i and best_move
+            self.board.undo()
+        #move = best_move
         self.board.make_move(move,self.color)
         return move
+
+    def checkscore(self):
+        return 0
+    
