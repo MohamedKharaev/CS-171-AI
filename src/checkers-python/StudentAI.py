@@ -20,6 +20,7 @@ class StudentAI():
         else:
             self.color = 1
         moves = self.board.get_all_possible_moves(self.color) # list of moves
+        print(self.board_score())
 
         #best_move = moves[0][0]
         # for i in moves:
@@ -54,13 +55,13 @@ class StudentAI():
         w_points = 0; b_points = 0;
         for c in range(self.col):
             for r in range(self.row):
-                if self.board[c][r].get_color() == 'W':
-                    if self.board[c][r].is_king == True:
+                if self.board.board[c][r].get_color() == 'W':
+                    if self.board.board[c][r].is_king == True:
                         w_points += 1.2;
                     else:
                         w_points += 1;
-                elif self.board[c][r].get_color() == 'B':
-                    if self.board[c][r].is_king == True:
+                elif self.board.board[c][r].get_color() == 'B':
+                    if self.board.board[c][r].is_king == True:
                         b_points += 1.2;
                     else:
                         b_points += 1;
