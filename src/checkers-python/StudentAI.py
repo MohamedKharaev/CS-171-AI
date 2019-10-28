@@ -36,18 +36,25 @@ class StudentAI():
 
         best_move = moves[0][0]
         for i in moves:
-            self.board.make_move(i)
-            opponents_moves = self.board.get_all_possible_moves(self.opponent[self.color])
-            min_move = opponents_moves[0][0];
-            for j in opponents_moves:
-                self.board.make_move(j)
-                # Find the min between min_move and j
-                # set min_move to the new min
+            for ii in i:
+                ## Loops through every possible move for self.color
+                self.board.make_move(ii, self.color)
+                print("AI move made:", ii)
+                opponents_moves = self.board.get_all_possible_moves(self.opponent[self.color])
+                min_move = opponents_moves[0][0];
+                for j in opponents_moves:
+                    for jj in j:
+                        ## Loops through every possible move for opponent
+                        self.board.make_move(jj, self.opponent[self.color])
+                        print("opponent move made:", jj, "- score:", self.board_score())
+
+                        # Find the min between min_move and j
+                        # set min_move to the new min
+                        self.board.undo()
+                        # Set the best_move to max of 
+                        # min_move and best_move
                 self.board.undo()
-            # Set the best_move to max of 
-            # min_move and best_move
-            self.board.undo()
-        #move = best_move
+        move = best_move
         self.board.make_move(move,self.color)
         return move
 
