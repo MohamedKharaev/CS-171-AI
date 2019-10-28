@@ -25,3 +25,21 @@ class StudentAI():
         move = moves[index][inner_index]
         self.board.make_move(move,self.color)
         return move
+
+    def board_score(self):
+        w_points = 0; b_points = 0;
+        for c in range(self.col):
+            for r in range(self.row):
+                if self.board[c][r].get_color() == 'W':
+                    if self.board[c][r].is_king == True:
+                        w_points += 1.2;
+                    else:
+                        w_points += 1;
+                elif self.board[c][r].get_color() == 'B':
+                    if self.board[c][r].is_king == True:
+                        b_points += 1.2;
+                    else:
+                        b_points += 1;
+                else:
+                    pass;
+        return w_points - b_points;
