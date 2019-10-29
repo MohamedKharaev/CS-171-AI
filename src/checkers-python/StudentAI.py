@@ -25,7 +25,9 @@ class StudentAI():
         moves = self.board.get_all_possible_moves(self.color)  # list of moves
 
         #Initializing the best_move/score as the first possible move/score
-        best_move = moves[0][0]
+        index = randint(0,len(moves)-1)
+        inner_index =  randint(0,len(moves[index])-1)
+        best_move = moves[index][inner_index]
         self.board.make_move(best_move, self.color)
         best_score = self.board_score()
         self.board.undo()
@@ -41,7 +43,9 @@ class StudentAI():
                     self.opponent[self.color])
 
                 #initializing the min_move/scre as the first possible move of the opponent
-                min_move = opponents_moves[0][0]
+                index = randint(0,len(opponents_moves)-1)
+                inner_index =  randint(0,len(opponents_moves[index])-1)
+                min_move = opponents_moves[index][inner_index]
                 self.board.make_move(min_move, self.opponent[self.color])
                 min_score = self.board_score()
                 self.board.undo()
