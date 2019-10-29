@@ -1,8 +1,8 @@
 from random import randint
 from BoardClasses import Move
 from BoardClasses import Board
-#The following part should be completed by students.
-#Students can modify anything except the class name and exisiting functions and varibles.
+# The following part should be completed by students.
+# Students can modify anything except the class name and exisiting functions and varibles.
 
 
 class StudentAI():
@@ -28,59 +28,63 @@ class StudentAI():
         best_score = self.board_score()
         self.board.undo()
 
-        for i in moves:
-        	for ii in i:
-				self.board.make_move(ii, self.color)
-				opponents_moves = self.board.get_all_possible_moves(self.opponent[self.color])
-
-				min_move = opponents_moves[0][0]
-				self.board.make_move(min_move, self.opponent[self.color])
-				min_score = self.board_score()
-            	self.board.undo()
-
-            	for j in opponents_moves:
-            		for jj in j:
-            			self.board.make_move(kk, self.opponent[self.color]__init__
-
-						# Find the min between min_move and j
-                        if( min_score > self.board_score() ):
-                            min_score = self.board_score
-                            min_move = jj
-
-                                                # set min_move to the new min
-                        self.board.undo()
-                # Set the best_move to max of
-                # min_move and best_move
-                if(best_score < min_score):
-                    best_score = min_score
-                    best_move = ii
-
-                self.board.undo()
-
-
         move = best_move
-		try:
-			self.board.make_move(move, self.color)
-		except InvalidMoveError:
-			pass
+        self.board.make_move(move, self.color)
         return move
-	
-	def board_score(self):
-		player_points = 0
-		opponent_points = 0
-		for c in range(self.col):
-			for r in range(self.row):
-				current_piece = self.board.board[c][r]
-				if current_piece.get_color() == self.color:
-					if current_piece.is_king == True:
-						player_points += 1.2
-					else:
-						opponent_points += 1
-				elif current_piece.get_color() == self.opponent[self.color]:
-					if current_piece.is_king == True:
-						opponent_points += 1.2
-					else:
-						opponent_points += 1
-				else:
-					pass
-		return player_points - opponent_points
+
+        '''
+    Finds the best move possible using the minMax algorithm
+    @param player: this param tracks the current player, 1 = black, 2 = white
+    @param depth: how far down we want to search
+    @param best_score: keeps track of the best score for player
+    @param best_move: keeps track of the best move to return
+    '''
+    def minMax(self, player, depth, best_score, best_move):
+        # base case depth = 0, return the score
+        if (depth == 0):
+            return self.board_score()
+
+        # get all the moves of the current player
+        moves = self.board.get_all_possible_moves(player)
+
+        # Itterate through each move
+        for i in moves:
+            for ii in i:
+				# change to new game state
+				self.board.make_move(ii, player)
+
+				if (player == self.color):
+					score2 = minMax(self, self.opponent[self.color], best_score, best_move)
+					if (best_score < score2):
+						best_score = score2
+						best_move = ii
+				elif(player == self.opponent[self.color]):
+					score2 = minMax(self, self.color, best_score, best_move)
+					if (best_score > score2):
+						best_score = score2
+						best_move = ii
+				self.board.undo()
+		return best_move
+
+					
+
+
+    def board_score(self):
+        player_points = 0
+        opponent_points = 0
+        for c in range(self.col):
+            for r in range(self.row):
+                current_piece = self.board.board[c][r]
+                if current_piece.get_color() == self.color:
+                    if current_piece.is_king == True:
+                        player_points += 1.2
+                    else:
+                        opponent_points += 1
+                elif current_piece.get_color() == self.opponent[self.color]:
+                    if current_piece.is_king == True:
+                        opponent_points += 1.2
+                    else:
+                        opponent_points += 1
+                else:
+                    pass
+        return player_points - opponent_points
