@@ -40,14 +40,12 @@ class StudentAI():
 
             	for j in opponents_moves:
             		for jj in j:
-            			self.board.make_move(kk, self.opponent[self.color]__init__
-
+            			self.board.make_move(jj, self.opponent[self.color])
 						# Find the min between min_move and j
                         if( min_score > self.board_score() ):
                             min_score = self.board_score
                             min_move = jj
 
-                                                # set min_move to the new min
                         self.board.undo()
                 # Set the best_move to max of
                 # min_move and best_move
@@ -65,22 +63,49 @@ class StudentAI():
 			pass
         return move
 	
-	def board_score(self):
+	def board_score(self, color):
+        ## @param color: color of player making the move
+        ## Heuristics to Evaluate with
+        ## Normal Piece : 1000 pts
+        ## King Piece : 2000 pts
+        ## Rows away from enemy end if Normal : (rows - curr_row / rows) * 1000
+        ## Amount of Pieces : (Amount of pieces left) / (self.col * self.p / 2) * 100
+        ## Randomization : randomInt (0-10)
+        
 		player_points = 0
 		opponent_points = 0
 		for c in range(self.col):
 			for r in range(self.row):
 				current_piece = self.board.board[c][r]
-				if current_piece.get_color() == self.color:
+
+                if current_piece.get_color() == color:
 					if current_piece.is_king == True:
-						player_points += 1.2
+						player_points += 2000
 					else:
-						opponent_points += 1
-				elif current_piece.get_color() == self.opponent[self.color]:
+						player_points += 1000
+                        if color == 1:
+                            player_points += ((self.row - r) / self.row) * 1000
+                        else:
+                            player_points += (r / self.row) * 1000
+                elif current_piece.get_color() == self.opponent[color]:
 					if current_piece.is_king == True:
-						opponent_points += 1.2
+						opponent_points += 2000
 					else:
-						opponent_points += 1
-				else:
+						opponent_points += 1000
+                        if self.opponent[color] == 1:
+                            opponent_points += ((self.row - r) / self.row) * 1000
+                        else:
+                            opponent_points += (r / self.row) * 1000
+                else:
 					pass
-		return player_points - opponent_points
+        
+        if color == 1:
+            player_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
+            opponent_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
+        else:
+            player_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
+            opponent_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
+        
+        randomization = randint(0, 50)
+            
+		return player_points - opponent_points + randomization
