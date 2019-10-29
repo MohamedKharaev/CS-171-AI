@@ -1,8 +1,8 @@
 from random import randint
 from BoardClasses import Move
 from BoardClasses import Board
-#The following part should be completed by students.
-#Students can modify anything except the class name and exisiting functions and varibles.
+# The following part should be completed by students.
+# Students can modify anything except the class name and exisiting functions and varibles.
 
 
 class StudentAI():
@@ -27,42 +27,36 @@ class StudentAI():
         self.board.make_move(best_move, self.color)
         best_score = self.board_score()
         self.board.undo()
+		
+		move = self.minMax(self.color, 2, best_score, best_move)
+        self.board.make_move(move, self.color)
 
-        for i in moves:
-        	for ii in i:
-				self.board.make_move(ii, self.color)
-				opponents_moves = self.board.get_all_possible_moves(self.opponent[self.color])
-
-				min_move = opponents_moves[0][0]
-				self.board.make_move(min_move, self.opponent[self.color])
-				min_score = self.board_score()
-            	self.board.undo()
-
-            	for j in opponents_moves:
-            		for jj in j:
-            			self.board.make_move(jj, self.opponent[self.color])
-						# Find the min between min_move and j
-                        if( min_score > self.board_score() ):
-                            min_score = self.board_score
-                            min_move = jj
-
-                        self.board.undo()
-                # Set the best_move to max of
-                # min_move and best_move
-                if(best_score < min_score):
-                    best_score = min_score
-                    best_move = ii
-
-                self.board.undo()
-
-
-        move = best_move
-		try:
-			self.board.make_move(move, self.color)
-		except InvalidMoveError:
-			pass
         return move
-	
+    
+    def minMax(self, player, depth, best_score, best_move):
+        if depth == 0:
+            return self.board_score()
+        # get all the moves of the current player
+    	moves = self.board.get_all_possible_moves( player)
+        # Itterate through each move
+    	for i in moves:
+        	for ii in i:
+				# change to new game state
+				self.board.make_move(ii, player)
+
+				if (player == self.color):
+					score2 = minMax(self, self.opponent[self.color], best_score, best_move)
+					if (best_score < score2):
+						best_score = score2
+						best_move = ii
+				elif(player == self.opponent[self.color]):
+					score2 = minMax(self, self.color, best_score, best_move)
+					if (best_score > score2):
+						best_score = score2
+						best_move = ii
+				self.board.undo()
+		return best_move
+
 	def board_score(self, color):
         ## @param color: color of player making the move
         ## Heuristics to Evaluate with
@@ -109,3 +103,4 @@ class StudentAI():
         randomization = randint(0, 50)
             
 		return player_points - opponent_points + randomization
+
