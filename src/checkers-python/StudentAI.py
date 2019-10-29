@@ -37,7 +37,7 @@ class StudentAI():
     	if depth == 0:
             return self.board_score()
         # get all the moves of the current player
-        moves = self.board.get_all_possible_moves(player)
+    	moves = self.board.get_all_possible_moves(player)
         # Itterate through each move
         for i in moves:
             for ii in i:
