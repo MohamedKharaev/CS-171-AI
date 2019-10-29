@@ -86,12 +86,12 @@ class StudentAI():
         b_points = 0
         for c in range(self.col):
             for r in range(self.row):
-                if self.board.board[c][r].get_color() == 'W':
+                if self.board.board[c][r].get_color() == self.color:
                     if self.board.board[c][r].is_king == True:
                         w_points += 1.2
                     else:
                         w_points += 1
-                elif self.board.board[c][r].get_color() == 'B':
+                elif self.board.board[c][r].get_color() == self.opponent[self.color]:
                     if self.board.board[c][r].is_king == True:
                         b_points += 1.2
                     else:
