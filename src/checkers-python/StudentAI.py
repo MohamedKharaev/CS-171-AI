@@ -27,8 +27,7 @@ class StudentAI():
         self.board.make_move(best_move, self.color)
         best_score = self.board_score()
         self.board.undo()
-		
-		move = self.minMax(self.color, 2, best_score, best_move)
+        move = self.minMax(self.color, 2, best_score, best_move)
         self.board.make_move(move, self.color)
 
         return move
@@ -37,27 +36,27 @@ class StudentAI():
         if depth == 0:
             return self.board_score()
         # get all the moves of the current player
-    	moves = self.board.get_all_possible_moves( player)
+        moves = self.board.get_all_possible_moves(player)
         # Itterate through each move
-    	for i in moves:
-        	for ii in i:
-				# change to new game state
-				self.board.make_move(ii, player)
+        for i in moves:
+            for ii in i:
+                # change to new game state
+                self.board.make_move(ii, player)
 
-				if (player == self.color):
-					score2 = minMax(self, self.opponent[self.color], best_score, best_move)
-					if (best_score < score2):
-						best_score = score2
-						best_move = ii
-				elif(player == self.opponent[self.color]):
-					score2 = minMax(self, self.color, best_score, best_move)
-					if (best_score > score2):
-						best_score = score2
-						best_move = ii
-				self.board.undo()
-		return best_move
+                if (player == self.color):
+                    score2 = minMax(self, self.opponent[self.color], best_score, best_move)
+                    if (best_score < score2):
+                        best_score = score2
+                        best_move = ii
+                elif (player == self.opponent[self.color]):
+                    score2 = minMax(self, self.color, best_score, best_move)
+                    if (best_score > score2):
+                        best_score = score2
+                        best_move = ii
+                self.board.undo()
+        return best_move
 
-	def board_score(self, color):
+    def board_score(self, color):
         ## @param color: color of player making the move
         ## Heuristics to Evaluate with
         ## Normal Piece : 1000 pts
@@ -65,33 +64,33 @@ class StudentAI():
         ## Rows away from enemy end if Normal : (rows - curr_row / rows) * 1000
         ## Amount of Pieces : (Amount of pieces left) / (self.col * self.p / 2) * 100
         ## Randomization : randomInt (0-10)
-        
-		player_points = 0
-		opponent_points = 0
-		for c in range(self.col):
-			for r in range(self.row):
-				current_piece = self.board.board[c][r]
+
+        player_points = 0
+        opponent_points = 0
+        for c in range(self.col):
+            for r in range(self.row):
+                current_piece = self.board.board[c][r]
 
                 if current_piece.get_color() == color:
-					if current_piece.is_king == True:
-						player_points += 2000
-					else:
-						player_points += 1000
+                    if current_piece.is_king == True:
+                        player_points += 2000
+                    else:
+                        player_points += 1000
                         if color == 1:
                             player_points += ((self.row - r) / self.row) * 1000
                         else:
                             player_points += (r / self.row) * 1000
                 elif current_piece.get_color() == self.opponent[color]:
-					if current_piece.is_king == True:
-						opponent_points += 2000
-					else:
-						opponent_points += 1000
+                    if current_piece.is_king == True:
+                        opponent_points += 2000
+                    else:
+                        opponent_points += 1000
                         if self.opponent[color] == 1:
                             opponent_points += ((self.row - r) / self.row) * 1000
                         else:
                             opponent_points += (r / self.row) * 1000
                 else:
-					pass
+                    pass
         
         if color == 1:
             player_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
@@ -102,5 +101,5 @@ class StudentAI():
         
         randomization = randint(0, 50)
             
-		return player_points - opponent_points + randomization
+        return player_points - opponent_points + randomization
 
