@@ -39,8 +39,8 @@ class StudentAI():
         # get all the moves of the current player
     	moves = self.board.get_all_possible_moves(player)
         # Itterate through each move
-        for i in moves:
-            for ii in i:
+    	for i in moves:
+        	for ii in i:
 				# change to new game state
 				self.board.make_move(ii, player)
 
