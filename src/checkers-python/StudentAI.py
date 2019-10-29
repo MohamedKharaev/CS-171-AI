@@ -55,7 +55,7 @@ class StudentAI():
 						best_score = score2
 						best_move = ii
 				self.board.undo()
-	return best_move
+		return best_move
 
 					
 
