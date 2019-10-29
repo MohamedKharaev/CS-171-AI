@@ -28,13 +28,13 @@ class StudentAI():
         best_score = self.board_score()
         self.board.undo()
 
-        move = minMax(self.color, 2, best_score, best_move)
+        move = self.minMax(self.color, 2, best_score, best_move)
         self.board.make_move(move, self.color)
         return move
 
 	def minMax(self, player, depth, best_score, best_move):
        	# base case depth = 0, return the score
-    	if depth == 0:
+        if depth == 0:
             return self.board_score()
         # get all the moves of the current player
     	moves = self.board.get_all_possible_moves( player)
@@ -56,6 +56,7 @@ class StudentAI():
 						best_move = ii
 				self.board.undo()
 		return best_move
+
 
     def board_score(self):
         player_points = 0
