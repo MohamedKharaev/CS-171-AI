@@ -30,10 +30,10 @@ class StudentAI():
 
         move = self.minMax(self.color, 2, best_score, best_move)
         self.board.make_move(move, self.color)
+
         return move
 
-	def minMax(self, player, depth, best_score, best_move):
-       	# base case depth = 0, return the score
+    def minMax(self, player, depth, best_score, best_move):
         if depth == 0:
             return self.board_score()
         # get all the moves of the current player
