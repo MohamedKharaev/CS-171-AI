@@ -32,22 +32,12 @@ class StudentAI():
         self.board.make_move(move, self.color)
         return move
 
-    '''
-    Finds the best move possible using the minMax algorithm
-    @param player: this param tracks the current player, 1 = black, 2 = white
-    @param depth: how far down we want to search
-    @param best_score: keeps track of the best score for player
-    @param best_move: keeps track of the best move to return
-    '''
-
     def minMax(self, player, depth, best_score, best_move):
-       # base case depth = 0, return the score
-        if (depth == 0):
+       	# base case depth = 0, return the score
+    	if depth == 0:
             return self.board_score()
-
         # get all the moves of the current player
         moves = self.board.get_all_possible_moves(player)
-
         # Itterate through each move
         for i in moves:
             for ii in i:
