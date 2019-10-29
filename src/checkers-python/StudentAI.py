@@ -24,18 +24,6 @@ class StudentAI():
             self.color = 1
         moves = self.board.get_all_possible_moves(self.color)  # list of moves
 
-        #best_move = moves[0][0]
-        # for i in moves:
-        #   min_move = moves[0][1]
-        #   self.make_move(i)
-        #   for j in self.board.get_all_possible_moves(opponent_color)
-        #         self.make_move(j)
-        #         min(min_move, j.score)
-        #         self.undo() # Undo the last move
-        #   max(best_move, moves)
-        #   self.undo()
-        # move= bestmove
-
         #Initializing the best_move/score as the first possible move/score
         best_move = moves[0][0]
         self.board.make_move(best_move, self.color)
@@ -78,7 +66,10 @@ class StudentAI():
 
                 self.board.undo()
         move = best_move
-        self.board.make_move(move, self.color)
+        try:
+            self.board.make_move(move, self.color)
+        except InvalidMoveError:
+            pass
         return move
 
     def board_score(self):
