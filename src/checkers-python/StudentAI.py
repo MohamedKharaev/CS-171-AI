@@ -28,7 +28,7 @@ class StudentAI():
         best_score = self.board_score()
         self.board.undo()
 
-        move = best_move
+        move = minMax(self.color, 2, best_score, best_move )
         self.board.make_move(move, self.color)
         return move
 
