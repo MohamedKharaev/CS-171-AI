@@ -32,7 +32,7 @@ class StudentAI():
         self.board.make_move(move, self.color)
         return move
 
-        '''
+    '''
     Finds the best move possible using the minMax algorithm
     @param player: this param tracks the current player, 1 = black, 2 = white
     @param depth: how far down we want to search
