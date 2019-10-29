@@ -20,19 +20,6 @@ class StudentAI():
         else:
             self.color = 1
         moves = self.board.get_all_possible_moves(self.color) # list of moves
-        print(self.board_score())
-
-        #best_move = moves[0][0]
-        # for i in moves:
-        #   min_move = moves[0][1]
-        #   self.make_move(i)
-        #   for j in self.board.get_all_possible_moves(opponent_color)
-        #         self.make_move(j)
-        #         min(min_move, j.score)
-        #         self.undo() # Undo the last move
-        #   max(best_move, moves)
-        #   self.undo()
-        # move= bestmove
 
         best_move = moves[0][0]
         for i in moves:
