@@ -27,7 +27,7 @@ class StudentAI():
         self.board.make_move(best_move, self.color)
         best_score = self.board_score( self.color )
         self.board.undo()
-        move = self.minMax(self.color, 5, best_score, best_move)[1]
+        move = self.minMax(self.color, 4, best_score, best_move)[1]
         self.board.make_move(move, self.color)
 
         return move
@@ -72,7 +72,7 @@ class StudentAI():
 
                 if current_piece.get_color() == color:
                     if current_piece.is_king == True:
-                        player_points += 2000
+                        player_points += 3000
                     else:
                         player_points += 1000
                         if color == 1:
