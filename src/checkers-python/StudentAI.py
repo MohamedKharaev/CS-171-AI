@@ -44,12 +44,12 @@ class StudentAI():
                 self.board.make_move(ii, player)
 
                 if (player == self.color):
-                    score2 = self.minMax(self.opponent[self.color], best_score, best_move)
+                    score2 = self.minMax(self.opponent[self.color], depth-1, best_score, best_move)
                     if (best_score < score2):
                         best_score = score2
                         best_move = ii
                 elif (player == self.opponent[self.color]):
-                    score2 = self.minMax(self.color, best_score, best_move)
+                    score2 = self.minMax(self.color, depth-1, best_score, best_move)
                     if (best_score > score2):
                         best_score = score2
                         best_move = ii
