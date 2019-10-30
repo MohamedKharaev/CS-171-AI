@@ -72,7 +72,7 @@ class StudentAI():
 
                 if current_piece.get_color() == color:
                     if current_piece.is_king == True:
-                        player_points += 1100
+                        player_points += 1300
                     else:
                         player_points += 1000
                         if color == 1:
@@ -81,7 +81,7 @@ class StudentAI():
                             player_points += (r / self.row) * 1000
                 elif current_piece.get_color() == self.opponent[color]:
                     if current_piece.is_king == True:
-                        opponent_points += 1100
+                        opponent_points += 1300
                     else:
                         opponent_points += 1000
                         if self.opponent[color] == 1:
