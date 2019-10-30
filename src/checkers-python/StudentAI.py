@@ -23,13 +23,11 @@ class StudentAI():
         else:
             self.color = 1
         moves = self.board.get_all_possible_moves(self.color)
-        index = randint(0,len(moves)-1)
-        inner_index =  randint(0,len(moves[index])-1)
-        best_move = moves[index][inner_index]
+        best_move = moves[0][0]
         self.board.make_move(best_move, self.color)
-        best_score = self.board_score( self.color )
+        #best_score = self.board_score( self.color )
         self.board.undo()
-        move = self.minMax(self.color, 4, best_score, best_move)[1]
+        move = self.minMax(self.color, 5, -9999, best_move)[1]
         self.board.make_move(move, self.color)
 
         return move
@@ -78,18 +76,18 @@ class StudentAI():
                     else:
                         player_points += 1000
                         if color == 1:
-                            player_points += ((self.row - r) / self.row) * 1200
+                            player_points += ((self.row - r) / self.row) * 1000
                         else:
-                            player_points += (r / self.row) * 1200
+                            player_points += (r / self.row) * 1000
                 elif current_piece.get_color() == self.opponent[color]:
                     if current_piece.is_king == True:
                         opponent_points += 2000
                     else:
                         opponent_points += 1000
                         if self.opponent[color] == 1:
-                            opponent_points += ((self.row - r) / self.row) * 1200
+                            opponent_points += ((self.row - r) / self.row) * 1000
                         else:
-                            opponent_points += (r / self.row) * 1200
+                            opponent_points += (r / self.row) * 1000
                 else:
                     pass
         
