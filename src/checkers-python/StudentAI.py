@@ -27,14 +27,14 @@ class StudentAI():
         self.board.make_move(best_move, self.color)
         best_score = self.board_score( self.color )
         self.board.undo()
-        move = self.minMax(self.color, 2, best_score, best_move)
+        move = self.minMax(self.color, 2, best_score, best_move)[1]
         self.board.make_move(move, self.color)
 
         return move
     
     def minMax(self, player, depth, best_score, best_move):
         if depth == 0:
-            return self.board_score( player )
+            return self.board_score( player ), best_move
         # get all the moves of the current player
         moves = self.board.get_all_possible_moves(player)
         # Itterate through each move
@@ -42,19 +42,18 @@ class StudentAI():
             for ii in i:
                 # change to new game state
                 self.board.make_move(ii, player)
-
                 if (player == self.color):
-                    score2 = self.minMax(self.opponent[self.color], depth-1, best_score, best_move)
+                    score2 = self.minMax(self.opponent[self.color], depth-1, best_score, best_move)[0]
                     if (best_score < score2):
                         best_score = score2
                         best_move = ii
                 elif (player == self.opponent[self.color]):
-                    score2 = self.minMax(self.color, depth-1, best_score, best_move)
+                    score2 = self.minMax(self.color, depth-1, best_score, best_move)[0]
                     if (best_score > score2):
                         best_score = score2
                         best_move = ii
                 self.board.undo()
-        return best_move
+        return best_score, best_move
 
     def board_score(self, color):
         ## @param color: color of player making the move
