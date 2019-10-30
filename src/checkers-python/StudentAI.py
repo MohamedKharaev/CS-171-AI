@@ -23,7 +23,9 @@ class StudentAI():
         else:
             self.color = 1
         moves = self.board.get_all_possible_moves(self.color)
-        best_move = moves[0][0]
+        index = randint(0,len(moves)-1)
+        inner_index =  randint(0,len(moves[index])-1)
+        best_move = moves[index][inner_index]
         self.board.make_move(best_move, self.color)
         best_score = self.board_score( self.color )
         self.board.undo()
