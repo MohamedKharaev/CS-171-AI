@@ -27,12 +27,12 @@ class StudentAI():
         #self.board.make_move(best_move, self.color)
         #best_score = self.board_score( self.color )
         #self.board.undo()
-        move = self.minMax(self.color, 3, -999999999, best_move)[1]
+        move = self.minMax(self.color, 3, -999999999, best_move, -999999999, best_move)[1]
         self.board.make_move(move, self.color)
 
         return move
     
-    def minMax(self, player, depth, best_score, best_move):
+    def minMax(self, player, depth, best_score, best_move, opponent_score, opponent_move):
         if depth == 0:
             return self.board_score( player ), best_move
         # get all the moves of the current player
@@ -43,17 +43,18 @@ class StudentAI():
                 # change to new game state
                 self.board.make_move(ii, player)
                 if (player == self.color):
-                    score2 = self.minMax(self.opponent[self.color], depth-1, best_score, best_move)[0]
-                    if (best_score <  score2):
-                        best_score = score2
+                    opponent_score = self.minMax(self.opponent[self.color], depth-1, best_score, best_move)[2]
+                    if (best_score <  opponent_score):
+                        best_score = opponent_score
                         best_move = ii
+                # opponent's turn: find the best score based on player's move
                 elif (player == self.opponent[self.color]):
-                    score2 = self.minMax(self.color, depth-1, best_score, best_move)[0]
-                    if (best_score > score2):
-                        best_score = score2
-                        best_move = ii
+                    best_score = self.minMax(self.color, depth-1, best_score, best_move)[0]
+                    if (opponent_score > best_score):
+                        opponent_score = best_score
+                        opponent_move = ii
                 self.board.undo()
-        return best_score, best_move
+        return best_score, best_move, opponent_score, opponent_move
 
     def board_score(self, color):
         ## @param color: color of player making the move
