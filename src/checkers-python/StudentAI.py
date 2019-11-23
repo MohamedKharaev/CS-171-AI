@@ -6,7 +6,7 @@ from BoardClasses import Board
 
 
 class StudentAI():
-
+    
     def __init__(self, col, row, p):
         self.col = col
         self.row = row
