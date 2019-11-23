@@ -9,11 +9,7 @@ We are following the javadoc docstring format which is:
 
 from GameLogic import GameLogic
 import sys
-<<<<<<< HEAD
-
-=======
 sys.path.append("./")
->>>>>>> 910384cfb286446520800052955f01d9021cbbac
 from socket import *
 def network_init():
     """
@@ -119,13 +115,10 @@ if __name__ == "__main__":
     elif mode == 't':
         main.Run(mode=mode)
 
-<<<<<<< HEAD
-=======
     elif mode == 's' or mode == 'self':
         order = sys.argv[5]
         main.Run(mode=mode,order=order)
 
->>>>>>> 910384cfb286446520800052955f01d9021cbbac
     elif mode == 'l':
         ai_path_1,ai_path_2 =  sys.argv[5],sys.argv[6]
         main.Run(mode=mode,ai_path_1=ai_path_1,ai_path_2=ai_path_2,time=1200)
