@@ -24,11 +24,7 @@ class Board:
     This class describes Board
     """
     opponent = {"W": "B", "B": "W"}
-<<<<<<< HEAD
-    def __init__(self,col,row, p):
-=======
     def __init__(self, col,row, p):
->>>>>>> 910384cfb286446520800052955f01d9021cbbac
         """
         Intializes board: 
             M = number of rows
@@ -361,8 +357,6 @@ class Board:
         elif self.col * self.p % 2 != 0:
             raise InvalidParameterError("N*P is odd -- must be even")
 
-<<<<<<< HEAD
-=======
     def check_initial_variable(self):
         """
         Checks the integrity of the initial board variables provided (M,N,P,Q)
@@ -381,7 +375,6 @@ class Board:
         elif self.col * self.p % 2 != 0:
             raise InvalidParameterError("N*P is odd -- must be even")
 
->>>>>>> 910384cfb286446520800052955f01d9021cbbac
     def undo(self):
         if self.saved_move != []:
             temp_saved_move = self.saved_move[-1]
@@ -403,19 +396,10 @@ class Board:
                 x,y,c,k = saved_enemy
                 self.board[x][y].color = c
                 self.board[x][y].is_king = k
-<<<<<<< HEAD
-                if c == "W":
-                    self.white_count += 1
-                if c == "B":
-                    self.black_count += 1
-=======
->>>>>>> 910384cfb286446520800052955f01d9021cbbac
             self.tie_counter -= 1
             self.saved_move.pop(-1)
         else:
             raise Exception("Cannot undo operation")
-<<<<<<< HEAD
-=======
         self.black_count = 0
         self.white_count = 0
         for i in range(self.row):
@@ -424,7 +408,6 @@ class Board:
                     self.white_count += 1
                 elif self.board[i][j].color == "B":
                     self.black_count += 1
->>>>>>> 910384cfb286446520800052955f01d9021cbbac
 
 
 
