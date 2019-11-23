@@ -102,4 +102,3 @@ class StudentAI():
         randomization = randint(0, 50)
             
         return player_points - opponent_points + randomization
-

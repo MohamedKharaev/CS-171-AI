@@ -69,8 +69,30 @@ void GameLogic::Run()
 {
 	if (mode == "m" or mode == "manual")
 	{
+<<<<<<< HEAD
         	AI* studentai = new StudentAI(col, row, p);
         	AI* manualai = new ManualAI(col, row, p);
+=======
+        AI* studentai = new StudentAI(col, row, p);
+        AI* manualai = new ManualAI(col, row, p);
+		if (order == 1)
+        	{
+            		aiList->push_back(manualai);
+            		aiList->push_back(studentai);
+        	}
+        	else
+        	{
+            		aiList->push_back(studentai);
+          	  	aiList->push_back(manualai);
+        	}
+
+		Manual();
+	}
+	else if (mode == "s" or mode == "self")
+	{
+		AI* studentai = new StudentAI(col, row, p);
+        AI* manualai = new StudentAI(col, row, p);
+>>>>>>> 910384cfb286446520800052955f01d9021cbbac
 		if (order == 1)
         	{
             		aiList->push_back(manualai);

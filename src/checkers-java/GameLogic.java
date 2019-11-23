@@ -95,6 +95,21 @@ public class GameLogic {
 
             Manual();
         }
+<<<<<<< HEAD
+=======
+        else if ("s".equals(this.mode) || "self".equals(this.mode)) {
+            if (this.order == 1) {
+                aiList.addElement(new StudentAI(col, row, p));
+                aiList.addElement(new StudentAI(col, row, p));
+            }
+            else {
+                aiList.addElement(new StudentAI(col, row, p));
+                aiList.addElement(new StudentAI(col, row, p));
+            }
+
+            Manual();
+        }
+>>>>>>> 910384cfb286446520800052955f01d9021cbbac
         else if ("t".equals(this.mode))
             TournamentInterface();
     }

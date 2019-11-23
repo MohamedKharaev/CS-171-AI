@@ -15,7 +15,11 @@ int main(int argc, char *argv[])
 	int p = atoi(argv[3]);
 	string mode = argv[4];
 	int order = 0;
+<<<<<<< HEAD
     if (mode == "m" or mode == "manual")
+=======
+    if (mode == "m" || mode == "manual"|| mode == "s"|| mode == "self")
+>>>>>>> 910384cfb286446520800052955f01d9021cbbac
     {
         order = atoi(argv[5]);
     }
