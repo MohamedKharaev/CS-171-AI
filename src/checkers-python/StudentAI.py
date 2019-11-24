@@ -68,7 +68,7 @@ class StudentAI():
             for i in moves:
                 for ii in i:
                     self.board.make_move( ii, player )
-                    opponenet_score = minMax2( self.opponent[self.color], depth-1, alpha, beta )[0]
+                    opponenet_score = self.minMax2( self.opponent[self.color], depth-1, alpha, beta )[0]
 
                     if( opponenet_score > best_score ):
                         best_score = opponenet_score
@@ -88,7 +88,7 @@ class StudentAI():
             for i in moves:
                 for ii in i:
                     self.board.make_move( ii, player )
-                    player_score = minMax2( self.color, depth -1, alpha, beta )[0]
+                    player_score = self.minMax2( self.color, depth -1, alpha, beta )[0]
                     if( player_score < best_score ):
                         best_move = player_score
                         best_move = ii
