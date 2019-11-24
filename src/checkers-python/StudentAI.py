@@ -91,7 +91,6 @@ class StudentAI():
                     player_score = self.minMax2( self.color, depth -1, alpha, beta, best_move )[0]
                     if( best_score > player_score ):
                         best_score = player_score
-                        best_move = ii
                     
                     beta = min( best_score, beta)
 
