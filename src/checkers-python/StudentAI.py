@@ -28,7 +28,7 @@ class StudentAI():
         #best_score = self.board_score( self.color )
         #self.board.undo()
         #move = self.minMax(self.color, 4, -999999999, best_move, 999999999, best_move)[1]
-        move = self.minMax2( self.color, 4, -999999999, 999999999 )[1]
+        move = self.minMax2( self.color, 4, -999999999, 999999999, best_move )[1]
         self.board.make_move(move, self.color)
 
         return move
@@ -57,9 +57,9 @@ class StudentAI():
                 self.board.undo()
         return best_score, best_move, opponent_score, opponent_move
 
-    def minMax2( self, player, depth, alpha, beta ):
+    def minMax2( self, player, depth, alpha, beta, best_move ):
         if depth == 0:
-            return self.board_score( player ), depth
+            return self.board_score( player ), best_move
 
         moves = self.board.get_all_possible_moves( player )
 
@@ -68,7 +68,7 @@ class StudentAI():
             for i in moves:
                 for ii in i:
                     self.board.make_move( ii, player )
-                    opponenet_score = self.minMax2( self.opponent[self.color], depth-1, alpha, beta )[0]
+                    opponenet_score = self.minMax2( self.opponent[self.color], depth-1, alpha, beta, best_move )[0]
 
                     if( opponenet_score > best_score ):
                         best_score = opponenet_score
@@ -88,7 +88,7 @@ class StudentAI():
             for i in moves:
                 for ii in i:
                     self.board.make_move( ii, player )
-                    player_score = self.minMax2( self.color, depth -1, alpha, beta )[0]
+                    player_score = self.minMax2( self.color, depth -1, alpha, beta, best_move )[0]
                     if( player_score < best_score ):
                         best_move = player_score
                         best_move = ii
