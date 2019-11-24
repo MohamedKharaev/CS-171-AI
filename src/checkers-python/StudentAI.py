@@ -100,7 +100,7 @@ class StudentAI():
                         break
                     self.board.undo()
 
-            return best_score, best move
+            return best_score, best_move
 
 
 
