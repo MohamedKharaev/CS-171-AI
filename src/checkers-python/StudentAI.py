@@ -27,7 +27,8 @@ class StudentAI():
         #self.board.make_move(best_move, self.color)
         #best_score = self.board_score( self.color )
         #self.board.undo()
-        move = self.minMax(self.color, 4, -999999999, best_move, 999999999, best_move)[1]
+        #move = self.minMax(self.color, 4, -999999999, best_move, 999999999, best_move)[1]
+        move = self.minMax2( self.color, 4, -999999999, 999999999 )[1]
         self.board.make_move(move, self.color)
 
         return move
@@ -55,6 +56,53 @@ class StudentAI():
                         opponent_move = ii
                 self.board.undo()
         return best_score, best_move, opponent_score, opponent_move
+
+    def minMax2( self, player, depth, alpha, beta ):
+        if depth == 0:
+            return self.board_score( player )
+
+        moves = self.board.get_all_possible_moves( player )
+
+        if ( player == self.color ):
+            best_score = -999999999
+            for i in moves:
+                for ii in i:
+                    self.board.make_move( ii, player )
+                    opponenet_score = minMax2( self.opponent[self.color], depth-1, alpha, beta )[0]
+
+                    if( opponenet_score > best_score ):
+                        best_score = opponenet_score
+                        best_move = ii
+
+                    alpha = max( alpha, best_score)
+
+                    if( beta <= alpha ):
+                        self.board.undo()
+                        break
+                    self.board.undo()
+            
+            return best_score, best_move
+        
+        else:
+            best_score = 999999999
+            for i in moves:
+                for ii in i:
+                    self.board.make_move( ii, player )
+                    player_score = minMax2( self.color, depth -1, alpha, beta )[0]
+                    if( player_score < best_score ):
+                        best_move = player_score
+                        best_move = ii
+                    
+                    beta = min( best_score, beta)
+
+                    if( beta <= alpha ):
+                        self.board.undo()
+                        break
+                    self.board.undo()
+
+            return best_score, best move
+
+
 
     def board_score(self, color):
         ## @param color: color of player making the move
