@@ -27,8 +27,8 @@ class StudentAI():
         #self.board.make_move(best_move, self.color)
         #best_score = self.board_score( self.color )
         #self.board.undo()
-        #move = self.minMax(self.color, 4, -999999999, best_move, 999999999, best_move)[1]
-        move = self.minMax2( self.color, 4, -999999999, 999999999, best_move )[1]
+        move = self.minMax(self.color, 4, -999999999, best_move, 999999999, best_move)[1]
+        #move = self.minMax2( self.color, 4, -999999999, 999999999, best_move )[1]
         self.board.make_move(move, self.color)
 
         return move
@@ -75,7 +75,10 @@ class StudentAI():
                         best_score = opponenet_score
                         best_move = ii
                     # pruning
-                    
+                    alpha = max( alpha, best_score )
+                    if( beta <= alpha ):
+                        self.board.undo()
+                        return best_score, best_move
                     #undo board state
                     self.board.undo()
             return best_score, best_move
@@ -91,6 +94,10 @@ class StudentAI():
                     if( best_score > player_score ): 
                         best_score = player_score
                     # pruning
+                    beta = min( beta, best_score ) 
+                    if( beta <= alpha ):
+                        self.board.undo()
+                        return best_score, best_move
                      #undo board state
 
                     self.board.undo()
