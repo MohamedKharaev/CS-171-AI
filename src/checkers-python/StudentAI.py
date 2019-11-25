@@ -28,7 +28,7 @@ class StudentAI():
         #best_score = self.board_score( self.color )
         #self.board.undo()
         #move = self.minMax(self.color, 4, -999999999, best_move, 999999999, best_move)[1]
-        move = self.minMax2( self.color, 4, -999999999, 999999999 )[1]
+        move = self.minMax2( self.color, 3, -999999999, 999999999, best_move )[1]
         self.board.make_move(move, self.color)
 
         return move
@@ -57,9 +57,9 @@ class StudentAI():
                 self.board.undo()
         return best_score, best_move, opponent_score, opponent_move
 
-    def minMax2( self, player, depth, alpha, beta ):
+    def minMax2( self, player, depth, alpha, beta, best_move ):
         if depth == 0:
-            return self.board_score( player ), depth
+            return self.board_score( player ), best_move
 
         moves = self.board.get_all_possible_moves( player )
         if ( player == self.color ):
@@ -67,7 +67,7 @@ class StudentAI():
             for i in moves:
                 for ii in i:
                     self.board.make_move( ii, player )
-                    opponenet_score = self.minMax2( self.opponent[self.color], depth-1, alpha, beta )[0]
+                    opponenet_score = self.minMax2( self.opponent[self.color], depth-1, alpha, beta, best_move )[0]
                     if( best_score < opponenet_score ):
                         best_score = opponenet_score
                         best_move = ii
@@ -83,10 +83,9 @@ class StudentAI():
             for i in moves:
                 for ii in i:
                     self.board.make_move( ii, player ) # Make move
-                    player_score = self.minMax2( self.color, depth -1, alpha, beta )[0] # Find MOJO's value
+                    player_score = self.minMax2( self.color, depth -1, alpha, beta, best_move )[0] # Find MOJO's value
                     if( best_score > player_score ): # Finding the min of MOJO
                         best_score = player_score
-                        best_move = ii
                     beta = min( best_score, beta) #Finding the min
                     if( beta <= alpha ):
                         self.board.undo()
