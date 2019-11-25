@@ -28,7 +28,7 @@ class StudentAI():
         #best_score = self.board_score( self.color )
         #self.board.undo()
         #move = self.minMax(self.color, 4, -999999999, best_move, 999999999, best_move)[1]
-        move = self.minMax2( self.color, 4, -999999999, 999999999, best_move )[1]
+        move = self.minMax2( self.color, 2, -999999999, 999999999, best_move )[1]
         self.board.make_move(move, self.color)
 
         return move
@@ -60,7 +60,7 @@ class StudentAI():
     def minMax2( self, player, depth, alpha, beta, best_move ):
         if depth == 0:
             return self.board_score( player ), best_move
-        print( "DEPTH IS " + depth)
+
         moves = self.board.get_all_possible_moves( player )
         if ( player == self.color ):
             best_score = -999999999
@@ -71,7 +71,7 @@ class StudentAI():
                     if( best_score < opponenet_score ):
                         best_score = opponenet_score
                         best_move = ii
-                    alpha = max( alpha, best_score)
+                    alpha = max( alpha, best_score )
                     if( beta <= alpha ):
                         self.board.undo()
                         return best_score, best_move
