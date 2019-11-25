@@ -86,6 +86,7 @@ class StudentAI():
                     player_score = self.minMax2( self.color, depth -1, alpha, beta )[0] # Find MOJO's value
                     if( best_score > player_score ): # Finding the min of MOJO
                         best_score = player_score
+                        best_move = ii
                     beta = min( best_score, beta) #Finding the min
                     if( beta <= alpha ):
                         self.board.undo()
