@@ -29,7 +29,7 @@ class StudentAI():
         #self.board.undo()
         #move = self.minMax(self.color, 4, -999999999, best_move, 999999999, best_move)[1]
         move = self.minMax2( self.color, 4, -999999999, 999999999, best_move )[1]
-        #self.board.make_move(move, self.color)
+        self.board.make_move(move, self.color)
 
         return move
     
