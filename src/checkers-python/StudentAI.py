@@ -35,7 +35,7 @@ class StudentAI():
     
     def minMax(self, player, depth, best_score, best_move, opponent_score, opponent_move):
         if depth == 0:
-            return self.board_score( player ), best_move
+            return self.board_score( ), best_move
         # get all the moves of the current player
         moves = self.board.get_all_possible_moves(player)
         # Itterate through each move
