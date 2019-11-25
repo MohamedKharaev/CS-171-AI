@@ -44,7 +44,7 @@ class StudentAI():
                 # change to new game state
                 self.board.make_move(ii, player)
                 if (player == self.color):
-                    opponent_score = self.minMax(self.opponent[self.color], depth-1, best_score, best_move,opponent_score, opponent_move)[0]
+                    opponent_score = self.minMax(self.opponent[self.color], depth-1, best_score, best_move,opponent_score, opponent_move,alpha, beta)[0]
                     if (best_score <  opponent_score):
                         best_score = opponent_score
                         best_move = ii
@@ -54,7 +54,7 @@ class StudentAI():
                         break
                 # opponent's turn: find the best score based on player's move
                 elif (player == self.opponent[self.color]):
-                    best_score = self.minMax(self.color, depth-1, best_score, best_move,opponent_score, opponent_move)[0]
+                    best_score = self.minMax(self.color, depth-1, best_score, best_move,opponent_score, opponent_move,alpha,beta)[0]
                     if (opponent_score > best_score):
                         opponent_score = best_score
                         opponent_move = ii
