@@ -129,7 +129,7 @@ class StudentAI():
                             player_points += ((self.row - r) / self.row) * 1000
                         else:
                             player_points += (r / self.row) * 1000
-                elif current_piece.get_color() == self.opponent[self.color]:
+                else:
                     if current_piece.is_king == True:
                         opponent_points += 2000
                     else:
@@ -138,15 +138,13 @@ class StudentAI():
                             opponent_points += ((self.row - r) / self.row) * 1000
                         else:
                             opponent_points += (r / self.row) * 1000
-                else:
-                    pass
         
         if self.color == 1:
-            player_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
-            opponent_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
-        else:
             player_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
             opponent_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
+        else:
+            player_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
+            opponent_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
         
         randomization = randint(0, 50)
             
