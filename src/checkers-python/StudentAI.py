@@ -113,8 +113,8 @@ class StudentAI():
         ## Amount of Pieces : (Amount of pieces left) / (self.col * self.p / 2) * 100
         ## Randomization : randomInt (0-10)
 
-        player_points = 0
-        opponent_points = 0
+        player_points = 0.0
+        opponent_points = 0.0
         for c in range(self.col):
             for r in range(self.row):
                 current_piece = self.board.board[c][r]
