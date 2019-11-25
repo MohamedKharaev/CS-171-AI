@@ -166,6 +166,5 @@ class StudentAI():
             player_points += ((self.board.white_count / (self.col * self.p / 2)) * 1000)
             opponent_points += ((self.board.black_count / (self.col * self.p / 2)) * 1000)
  
-        randomization = randint(0, 10)
- xw
+        randomization = randint(0, 10) 
         return player_points - opponent_points + randomization
