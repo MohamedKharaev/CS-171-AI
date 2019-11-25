@@ -25,7 +25,7 @@ class StudentAI():
         moves = self.board.get_all_possible_moves(self.color)
         best_move = moves[0][0]
         #move = self.minMax(self.color, 4, -999999999, best_move, 999999999, best_move)[1]
-        move = self.minMax2( self.color, 6, -999999999, 999999999, best_move )[1]
+        move = self.minMax2( self.color, 5, -999999999, 999999999, best_move )[1]
         self.board.make_move(move, self.color)
 
         return move
