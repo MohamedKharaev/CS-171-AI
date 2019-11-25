@@ -140,12 +140,11 @@ class StudentAI():
                             opponent_points += (r / self.row) * 1000
         
         if self.color == 1:
-            player_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
-            opponent_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
+            player_points += ((self.board.black_count / (self.col * self.p / 2)) * 300)
+            opponent_points += ((self.board.white_count / (self.col * self.p / 2)) * 300)
         else:
-            player_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
-            opponent_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
+            player_points += ((self.board.white_count / (self.col * self.p / 2)) * 300)
+            opponent_points += ((self.board.black_count / (self.col * self.p / 2)) * 300)
         
         randomization = randint(0, 50)
-            
         return player_points - opponent_points + randomization
