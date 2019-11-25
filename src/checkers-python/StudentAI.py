@@ -60,7 +60,7 @@ class StudentAI():
     def minMax2( self, player, depth, alpha, beta, best_move ):
         if depth == 0:
             return self.board_score( player ), best_move
-
+        print( "DEPTH IS " + depth)
         moves = self.board.get_all_possible_moves( player )
         if ( player == self.color ):
             best_score = -999999999
