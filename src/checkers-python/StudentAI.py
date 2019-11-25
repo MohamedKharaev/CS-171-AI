@@ -27,13 +27,13 @@ class StudentAI():
         #self.board.make_move(best_move, self.color)
         #best_score = self.board_score( self.color )
         #self.board.undo()
-        #move = self.minMax(self.color, 4, -999999999, best_move, 999999999, best_move)[1]
-        move = self.minMax2( self.color, 3, -999999999, 999999999, best_move )[1]
+        move = self.minMax(self.color, 4, -999999999, best_move, 999999999, best_move, -999999999, 999999999)[1]
+        #move = self.minMax2( self.color, 3, -999999999, 999999999, best_move )[1]
         self.board.make_move(move, self.color)
 
         return move
     
-    def minMax(self, player, depth, best_score, best_move, opponent_score, opponent_move):
+    def minMax(self, player, depth, best_score, best_move, opponent_score, opponent_move, alpha, beta):
         if depth == 0:
             return self.board_score( player ), best_move
         # get all the moves of the current player
@@ -48,12 +48,20 @@ class StudentAI():
                     if (best_score <  opponent_score):
                         best_score = opponent_score
                         best_move = ii
+                    alpha = max( alpha, best_score)
+                    if( beta <= alpha ):
+                        self.board.undo()
+                        break
                 # opponent's turn: find the best score based on player's move
                 elif (player == self.opponent[self.color]):
                     best_score = self.minMax(self.color, depth-1, best_score, best_move,opponent_score, opponent_move)[0]
                     if (opponent_score > best_score):
                         opponent_score = best_score
                         opponent_move = ii
+                    beta = min( best_score, beta) #Finding the min
+                    if( beta <= alpha ):
+                        self.board.undo()
+                        break
                 self.board.undo()
         return best_score, best_move, opponent_score, opponent_move
 
