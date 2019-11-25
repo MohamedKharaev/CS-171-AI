@@ -77,6 +77,7 @@ class StudentAI():
                     # pruning
                     alpha = max( alpha, best_score )
                     if( beta <= alpha ):
+                        self.board.undo()
                         return best_score, best_move
                     #undo board state
                     self.board.undo()
@@ -95,6 +96,7 @@ class StudentAI():
                     # pruning
                     beta = min( beta, best_score ) 
                     if( beta <= alpha ):
+                        self.board.undo()
                         return best_score, best_move
                      #undo board state
 
