@@ -89,7 +89,6 @@ class StudentAI():
                     player_score = self.minMax2( self.color, depth -1, alpha, beta, best_move )[0]
                     # min of best_score ( out of all moves ) and our AI's score ( score for boardstate(ii) )
                     opponenet_score = min( opponenet_score, player_score)
-                    # pruning
                     beta = min( beta, opponenet_score ) 
                     if( beta <= alpha ):
                         self.board.undo()
@@ -135,12 +134,12 @@ class StudentAI():
                         else:
                             opponent_points += (r / self.row) * 1000
         
-        if self.color == 1:
-            player_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
-            opponent_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
-        else:
-            player_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
-            opponent_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
+       # if self.color == 1:
+       #     player_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
+       #     opponent_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
+       # else:
+       #     player_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
+       #     opponent_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
         
         #randomization = randint(0, 50)
         return player_points - opponent_points #+ randomization
