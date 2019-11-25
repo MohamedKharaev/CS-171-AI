@@ -63,7 +63,7 @@ class StudentAI():
 
         moves = self.board.get_all_possible_moves( player )
         if ( player == self.color ):
-            best_score = -999999999
+            best_score = -999999999 #MIN
             for i in moves:
                 for ii in i:
                     self.board.make_move( ii, player )
@@ -78,7 +78,7 @@ class StudentAI():
                     self.board.undo()
             return best_score, best_move
         else: # Poor-AI
-            best_score = 999999999
+            best_score = 999999999 #MAX
             for i in moves:
                 for ii in i:
                     self.board.make_move( ii, player ) # Make move
