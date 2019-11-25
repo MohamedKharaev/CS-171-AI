@@ -64,31 +64,41 @@ class StudentAI():
         moves = self.board.get_all_possible_moves( player )
         if ( player == self.color ):
             best_score = -999999999 #MIN
-            for i in moves:
+            for i in moves: #Loop through possible moves
                 for ii in i:
-                    self.board.make_move( ii, player )
+                    # switch to different game state
+                    self.board.make_move( ii, player ) 
+                    # Get opponents score in the game state
                     opponenet_score = self.minMax2( self.opponent[self.color], depth-1, alpha, beta, best_move )[0]
+                    # max of best_score ( out of all moves ) and opponent score ( score for boardstate(ii) )
                     if( best_score < opponenet_score ):
                         best_score = opponenet_score
                         best_move = ii
+                    # pruning
                     alpha = max( alpha, best_score )
                     if( beta <= alpha ):
                         self.board.undo()
                         return best_score, best_move
+                    #undo board state
                     self.board.undo()
             return best_score, best_move
         else: # Poor-AI
             best_score = 999999999 #MAX
             for i in moves:
                 for ii in i:
-                    self.board.make_move( ii, player ) # Make move
-                    player_score = self.minMax2( self.color, depth -1, alpha, beta, best_move )[0] # Find MOJO's value
-                    if( best_score > player_score ): # Finding the min of MOJO
+                    # switch to different game state
+                    self.board.make_move( ii, player )
+                    # Get our AI score in the game state
+                    player_score = self.minMax2( self.color, depth -1, alpha, beta, best_move )[0]
+                    # min of best_score ( out of all moves ) and our AI's score ( score for boardstate(ii) )
+                    if( best_score > player_score ): 
                         best_score = player_score
-                    beta = min( beta, best_score ) #Finding the min
+                    # pruning
+                    beta = min( beta, best_score ) 
                     if( beta <= alpha ):
                         self.board.undo()
                         return best_score, best_move
+                    #undo board state
                     self.board.undo()
             return best_score, best_move
 
