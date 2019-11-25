@@ -75,7 +75,7 @@ class StudentAI():
                     alpha = max( alpha, player_score )
                     if( beta <= alpha ):
                         self.board.undo()
-                        return player_score, best_move
+                        break
                     #undo board state
                     self.board.undo()
             return player_score, best_move
@@ -93,7 +93,7 @@ class StudentAI():
                     beta = min( beta, opponenet_score ) 
                     if( beta <= alpha ):
                         self.board.undo()
-                        return opponenet_score, best_move
+                        break
                      #undo board state
 
                     self.board.undo()
