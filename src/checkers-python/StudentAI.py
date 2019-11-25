@@ -91,8 +91,7 @@ class StudentAI():
                     # Get our AI score in the game state
                     player_score = self.minMax2( self.color, depth -1, alpha, beta, best_move )[0]
                     # min of best_score ( out of all moves ) and our AI's score ( score for boardstate(ii) )
-                    if( best_score > player_score ): 
-                        best_score = player_score
+                    best_score = min( best_score, player_score)
                     # pruning
                     beta = min( beta, best_score ) 
                     if( beta <= alpha ):
