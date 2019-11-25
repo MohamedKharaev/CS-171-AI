@@ -60,7 +60,7 @@ class StudentAI():
     def minMax2( self, player, depth, alpha, beta, best_move ):
         if depth == 0:
             return self.board_score(), best_move
-
+            
         moves = self.board.get_all_possible_moves( player )
         if ( player == self.color ):
             best_score = -999999999 #MIN
@@ -121,7 +121,7 @@ class StudentAI():
 
                 if current_piece.get_color() == self.color:
                     if current_piece.is_king == True:
-                        player_points += 100000
+                        player_points += 2000
                     else:
                         player_points += 1000
                         if self.color == 2:
