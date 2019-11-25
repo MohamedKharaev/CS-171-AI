@@ -98,7 +98,8 @@ class StudentAI():
                     if( beta <= alpha ):
                         self.board.undo()
                         return best_score, best_move
-                    #undo board state
+                     #undo board state
+
                     self.board.undo()
             return best_score, best_move
 
@@ -109,19 +110,31 @@ class StudentAI():
         ## Heuristics to Evaluate with
         ## Normal Piece : 1000 pts
         ## King Piece : 2000 pts
+        ## King Distance from enemy / Max distance on board * 1000
         ## Rows away from enemy end if Normal : (rows - curr_row / rows) * 1000
         ## Amount of Pieces : (Amount of pieces left) / (self.col * self.p / 2) * 100
         ## Randomization : randomInt (0-10)
-
         player_points = 0
         opponent_points = 0
+        max_distance_on_board = ((self.col**2) + (self.row**2))**.5
         for c in range(self.col):
             for r in range(self.row):
                 current_piece = self.board.board[c][r]
-
                 if current_piece.get_color() == color:
                     if current_piece.is_king == True:
                         player_points += 2000
+                        closest_piece = None
+                        while closest_piece == None:
+                            mult = 1
+                            for delta_x in [-1, 0, 1]:
+                                try:
+                                    if self.board.board[c + (delta_x * mult)][r + (delta_y * mult)].get_color == self.opponent[color]:
+                                        closest_piece = self.board[c + (delta_x * mult)][r + (delta_y * mult)]
+                                except:
+                                    pass
+                                mult += 1
+                                dist_from_closest = ( ((current_piece.row - closest_piece.row) ** 2) + ((curent_piece.col - closest_piece.col) ** 2) ) ** .5
+                                player_points += ((dist_from_closest / max_distance_on_board) * 1000)
                     else:
                         player_points += 1000
                         if color == 1:
@@ -131,22 +144,3 @@ class StudentAI():
                 elif current_piece.get_color() == self.opponent[color]:
                     if current_piece.is_king == True:
                         opponent_points += 2000
-                    else:
-                        opponent_points += 1000
-                        if self.opponent[color] == 1:
-                            opponent_points += ((self.row - r) / self.row) * 1000
-                        else:
-                            opponent_points += (r / self.row) * 1000
-                else:
-                    pass
-        
-        if color == 1:
-            player_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
-            opponent_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
-        else:
-            player_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
-            opponent_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
-        
-        randomization = randint(0, 50)
-            
-        return player_points - opponent_points + randomization
