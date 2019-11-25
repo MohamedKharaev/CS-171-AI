@@ -68,7 +68,7 @@ class StudentAI():
                     # Get opponents score in the game state
                     opponenet_score = self.minMax2( self.opponent[self.color], depth-1, alpha, beta, best_move )[0]
                     # max of best_score ( out of all moves ) and opponent score ( score for boardstate(ii) )
-                    if( player_score < opponenet_score ):
+                    if( player_score <= opponenet_score ):
                         player_score = opponenet_score
                         best_move = ii
                     # pruning
