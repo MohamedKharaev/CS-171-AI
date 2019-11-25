@@ -105,7 +105,7 @@ class StudentAI():
 
 
 
-    def board_score(self, color):
+    def board_score(self):
         ## @param color: color of player making the move
         ## Heuristics to Evaluate with
         ## Normal Piece : 1000 pts
@@ -120,12 +120,12 @@ class StudentAI():
             for r in range(self.row):
                 current_piece = self.board.board[c][r]
 
-                if current_piece.get_color() == color:
+                if current_piece.get_color() == self.color:
                     if current_piece.is_king == True:
                         player_points += 2000
                     else:
                         player_points += 1000
-                        if color == 1:
+                        if self.color == 1:
                             player_points += ((self.row - r) / self.row) * 1000
                         else:
                             player_points += (r / self.row) * 1000
@@ -141,7 +141,7 @@ class StudentAI():
                 else:
                     pass
         
-        if color == 1:
+        if self.color == 1:
             player_points += ((self.board.white_count / (self.col * self.p / 2)) * 100)
             opponent_points += ((self.board.black_count / (self.col * self.p / 2)) * 100)
         else:
