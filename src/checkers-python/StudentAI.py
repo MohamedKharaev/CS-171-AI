@@ -59,6 +59,10 @@ class StudentAI():
 
     def minMax2( self, player, depth, alpha, beta, best_move ):
         if depth == 0:
+            print('\n\n')
+            print( self.board_score() )
+            print('\n\n')
+
             return self.board_score(), best_move
 
         moves = self.board.get_all_possible_moves( player )
