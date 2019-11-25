@@ -75,10 +75,7 @@ class StudentAI():
                         best_score = opponenet_score
                         best_move = ii
                     # pruning
-                    alpha = max( alpha, best_score )
-                    if( beta <= alpha ):
-                        self.board.undo()
-                        return best_score, best_move
+                    
                     #undo board state
                     self.board.undo()
             return best_score, best_move
@@ -94,10 +91,6 @@ class StudentAI():
                     if( best_score > player_score ): 
                         best_score = player_score
                     # pruning
-                    beta = min( beta, best_score ) 
-                    if( beta <= alpha ):
-                        self.board.undo()
-                        return best_score, best_move
                      #undo board state
 
                     self.board.undo()
